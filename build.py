@@ -743,7 +743,6 @@ def page_principal():
     <figure class="hero-photo">
       {foto(p, "hero", "Dra. Jeanine Carneiro, médica", "(max-width: 900px) min(460px, calc(100vw - 2rem)), 480px", True, 800, 926)}
       <div class="badge b1"><b>+3 mil</b><span>famílias atendidas</span></div>
-      <div class="badge b2"><b>{NOTA}</b>{stars()}<span>{AVALIACOES} no Google</span></div>
     </figure>
   </div>
 </section>
@@ -945,7 +944,6 @@ def page_home():
     <figure class="hero-photo">
       {foto(p, "hero", "Dra. Jeanine Carneiro, médica", "(max-width: 900px) min(460px, calc(100vw - 2rem)), 480px", True, 800, 926)}
       <div class="badge b1"><b>+3 mil</b><span>famílias atendidas</span></div>
-      <div class="badge b2"><b>{NOTA}</b>{stars()}<span>{AVALIACOES} no Google</span></div>
     </figure>
   </div>
 </section>
