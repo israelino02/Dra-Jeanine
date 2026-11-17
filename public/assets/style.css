@@ -402,6 +402,12 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
 
 /* ---------- celular: números em esteira fina, colunas 2x2 ---------- */
 .stats-dup{display:none}
+@media (min-width:761px){
+  .stats-band .stats{padding:.9rem 0;gap:0}
+  .stats-band .stats li{display:flex;align-items:baseline;justify-content:center;gap:.5rem;white-space:nowrap}
+  .stats-band .stats b{display:inline;font-size:clamp(1.3rem,1rem + .8vw,1.7rem);margin:0}
+  .stats-band .stats span{font-size:.88rem}
+}
 @media (max-width:760px){
   .stats-band{overflow:hidden}
   .stats-band .wrap.stats-track{display:flex;width:max-content;max-width:none;margin:0;padding:0;animation:esteira 26s linear infinite}
