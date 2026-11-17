@@ -82,3 +82,15 @@ O resultado precisa ser **0** em todas as páginas.
 ## Prévia local
 
 O servidor de prévia não lê a pasta Documents (permissão do macOS). Então a prévia usa uma cópia no scratchpad da sessão (`site-jeanine-scratch` no `.claude/launch.json` da pasta de clientes).
+
+## Publicação
+
+- **No ar (provisório):** https://dra-jeanine-u6uq.vercel.app (Vercel, projeto `dra-jeanine-u6uq`, conta israelino02-6552)
+- **Repositório:** https://github.com/israelino02/Dra-Jeanine (público, branch `main`)
+- **Atualizar:** `python3 build.py` → commit → `git push origin main`. A Vercel publica sozinha em segundos.
+- **Fora do Google** enquanto estiver no endereço provisório: `INDEXAR = False` no `build.py` gera `noindex` e `robots.txt` com `Disallow`.
+- **Para ir para o domínio:**
+  1. Adicionar `drajeaninecarneiro.com.br` no projeto da Vercel (Settings → Domains).
+  2. Trocar o DNS. Hoje ele aponta para o site antigo, hospedado pelo ChatGPT atrás da Cloudflare.
+  3. Mudar para `INDEXAR = True`, rodar o build e fazer push.
+  4. Só fazer isso depois de zerar as pendências em amarelo.
