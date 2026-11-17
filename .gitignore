@@ -1,0 +1,5 @@
+.DS_Store
+_originais/
+capturas/
+__pycache__/
+*.pyc
