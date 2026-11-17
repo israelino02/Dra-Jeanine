@@ -1,4 +1,4 @@
-/* Dra. Jeanine Carneiro — comportamento do site.
+/* Dra. Jeanine Carneiro: comportamento do site.
    Sem dependências. Nada de dado de saúde vai para a camada de dados:
    só página, posição do botão e público (infantil/adulto/programa). */
 (function () {

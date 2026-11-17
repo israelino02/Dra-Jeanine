@@ -39,7 +39,7 @@ GOOGLE = "https://www.google.com/maps/search/?api=1&query=Dra.+Jeanine+Carneiro+
 MAPS = "https://www.google.com/maps/search/?api=1&query=Rua+Vilela+665+Tatuap%C3%A9+S%C3%A3o+Paulo"
 NOTA, AVALIACOES = "4,8", "136"
 INSTA_USER = "@drajeanine"
-# horário do Perfil da Empresa no Google (17/11/2026): seg–sex 8h–16h
+# horário do Perfil da Empresa no Google (17/11/2026): seg a sex, 8h às 16h
 HORARIOS = [("Segunda a sexta", "8h às 16h"), ("Sábado e domingo", "Fechado")]
 MAP_EMBED = "https://www.google.com/maps?q=" + "R.+Vilela,+665+-+Tatuap%C3%A9,+S%C3%A3o+Paulo+-+SP,+03314-000" + "&z=16&output=embed"
 ATUALIZADO = "2026-11-17"
@@ -237,14 +237,18 @@ def proof():
 
 
 def stats():
+    itens = "".join('<li class="reveal"><b>%s</b><span>%s</span></li>' % (n, t) for n, t in (
+        ("+3 mil", "famílias atendidas"),
+        ("%s★" % NOTA, "%s avaliações no Google" % AVALIACOES),
+        ("1 hora", "de consulta, sem pressa"),
+        ("Brasil", "presencial ou online"),
+    ))
     return f"""
-<section class="dark" aria-label="Números">
-  <ul class="wrap stats">
-    <li class="reveal"><b>+3 mil</b><span>famílias atendidas</span></li>
-    <li class="reveal"><b>{NOTA}★</b><span>{AVALIACOES} avaliações no Google</span></li>
-    <li class="reveal"><b>1 hora</b><span>de consulta, sem pressa</span></li>
-    <li class="reveal"><b>Brasil</b><span>presencial ou online</span></li>
-  </ul>
+<section class="dark stats-band" aria-label="Números">
+  <div class="wrap stats-track">
+    <ul class="stats">{itens}</ul>
+    <ul class="stats stats-dup" aria-hidden="true">{itens}</ul>
+  </div>
 </section>
 """
 
@@ -835,7 +839,7 @@ def page_medica():
       <li>{ic("check")}<span>Criadora do Programa de Cuidado Personalizado (6 meses)</span></li>
     </ul>
     <p class="crm">Médica · {CRM}</p>
-    <p>{P("Vídeo curto (30–60s) da Dra. se apresentando: aumenta muito a confiança. Pedir à cliente.")}</p>
+    <p>{P("Vídeo curto (30 a 60s) da Dra. se apresentando: aumenta muito a confiança. Pedir à cliente.")}</p>
     <p>{P("Livro da Dra.: título, capa e link de venda.")}</p>
   </div>
 </section>

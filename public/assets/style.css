@@ -1,4 +1,4 @@
-/* Dra. Jeanine Carneiro — estilos do site
+/* Dra. Jeanine Carneiro: estilos do site
    v2 (17/11/2026): menos texto, títulos fortes, componentes visuais e
    interativos. Responsivo de 320px a telas grandes.
    Paleta e contraste: ver README.md */
@@ -399,3 +399,29 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
   *,*::before,*::after{transition:none!important;animation:none!important}
   .js .reveal{opacity:1;transform:none}
 }
+
+/* ---------- celular: números em esteira fina, colunas 2x2 ---------- */
+.stats-dup{display:none}
+@media (max-width:760px){
+  .stats-band{overflow:hidden}
+  .stats-band .wrap.stats-track{display:flex;width:max-content;max-width:none;margin:0;padding:0;animation:esteira 26s linear infinite}
+  .stats-band .stats,.stats-band .stats-dup{display:flex;padding:.75rem 0;gap:0;row-gap:0}
+  .stats-band .stats li,.stats-band .stats li:first-child,.stats-band .stats li:nth-child(3){display:flex;align-items:baseline;gap:.45rem;white-space:nowrap;padding:0 1.4rem;border-left:1px solid var(--deep-600)}
+  .stats-band .stats b{display:inline;font-size:1.3rem;margin:0}
+  .stats-band .stats span{font-size:.85rem}
+  .js .stats-band .reveal{opacity:1;transform:none}
+  .cards,.cards.c5,.cards.c3,.cards.c2,.pillars,.signs{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .card{display:block;padding:1rem .85rem}
+  .card .ico{width:40px;height:40px;border-radius:12px;margin:0 0 .6rem}
+  .card .ico svg{width:20px;height:20px}
+  .card::after{top:.8rem;right:.85rem;font-size:1.7rem}
+  .card h3{font-size:1.02rem;line-height:1.25}
+  .card p{font-size:.88rem}
+  .pillar{padding:1.1rem .9rem}
+  .pillar b{font-size:1.5rem}
+  .pillar p{font-size:.9rem}
+  .signs li{flex-direction:column;align-items:flex-start;gap:.5rem;padding:.8rem;font-size:.92rem}
+  .cards>:last-child:nth-child(odd),.pillars>:last-child:nth-child(odd),.signs>:last-child:nth-child(odd){grid-column:1/-1}
+}
+@keyframes esteira{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.stats-band .wrap.stats-track{animation:none}}
