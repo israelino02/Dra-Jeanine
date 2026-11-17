@@ -85,7 +85,7 @@ O servidor de prévia não lê a pasta Documents (permissão do macOS). Então a
 
 ## Publicação
 
-- **No ar (provisório):** https://dra-jeanine-u6uq.vercel.app (Vercel, projeto `dra-jeanine-u6uq`, conta israelino02-6552)
+- **No ar (provisório):** https://dra-jeanine.vercel.app (Vercel, projeto `dra-jeanine`, conta israelino02-6552). Existe só esse projeto: um duplicado criado sem querer (`dra-jeanine-u6uq`) foi apagado em 17/11.
 - **Repositório:** https://github.com/israelino02/Dra-Jeanine (público, branch `main`)
 - **Atualizar:** `python3 build.py` → commit → `git push origin main`. A Vercel publica sozinha em segundos.
 - **Fora do Google** enquanto estiver no endereço provisório: `INDEXAR = False` no `build.py` gera `noindex` e `robots.txt` com `Disallow`.
