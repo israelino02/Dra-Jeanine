@@ -234,7 +234,9 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
 /* ---------- faixa de frase (escuro) ---------- */
 .quote-band{text-align:center}
 .big-quote{font:italic 500 clamp(1.8rem,1.2rem + 3vw,3.3rem)/1.15 var(--serif);color:var(--cream);margin:0 auto .8em;max-width:20ch}
-.big-quote span{color:var(--gold-soft)}
+.big-quote span{color:var(--gold-soft);display:block;white-space:nowrap}
+.big-quote span.l1{color:inherit}
+.big-quote{max-width:none;font-size:clamp(1.2rem,6.2vw,3.3rem)}
 .quote-band p.lede{margin:0 auto}
 .sign{display:inline-flex;align-items:center;gap:.8rem;margin-top:1.8rem;text-align:left;font-size:.95rem;color:var(--on-deep-muted)}
 .sign img{width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid var(--gold)}
@@ -404,7 +406,7 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
 .stats-dup{display:none}
 @media (min-width:761px){
   .stats-band .stats{padding:.9rem 0;gap:0}
-  .stats-band .stats li{display:flex;align-items:baseline;justify-content:center;gap:.5rem;white-space:nowrap}
+  .stats-band .stats li{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:0 .5rem;text-align:center}
   .stats-band .stats b{display:inline;font-size:clamp(1.3rem,1rem + .8vw,1.7rem);margin:0}
   .stats-band .stats span{font-size:.88rem}
 }

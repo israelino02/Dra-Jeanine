@@ -563,7 +563,7 @@ def sec_frase(p):
     return f"""
 <section class="sec dark quote-band">
   <div class="wrap">
-    <p class="big-quote reveal">Você não está exagerando. <span>Você está prestando atenção.</span></p>
+    <p class="big-quote reveal"><span class="l1">Você não está exagerando.</span> <span>Você está prestando atenção.</span></p>
     <p class="lede">A Dra. Jeanine é médica, autista e mãe de autista. Ela já esteve do seu lado da mesa.</p>
     <div class="sign">
       <img src="{p}assets/sobre-480.webp" alt="" width="54" height="54" loading="lazy">
