@@ -42,7 +42,7 @@ INSTA_USER = "@drajeanine"
 # horário do Perfil da Empresa no Google (17/11/2026): seg a sex, 8h às 16h
 HORARIOS = [("Segunda a sexta", "8h às 16h"), ("Sábado e domingo", "Fechado")]
 MAP_EMBED = "https://www.google.com/maps?q=" + "R.+Vilela,+665+-+Tatuap%C3%A9,+S%C3%A3o+Paulo+-+SP,+03314-000" + "&z=16&output=embed"
-ATUALIZADO = "2026-11-17"
+ATUALIZADO = "2026-11-18"
 
 # Enquanto o site está só no endereço provisório da Vercel (com pendências em
 # amarelo), ele fica FORA do Google. Ao apontar o domínio: INDEXAR = True.
@@ -54,10 +54,10 @@ PRINCIPAL = "avaliacao-autismo-infantil/"
 # páginas de sitelink: (slug, rótulo do menu)
 SITELINKS = [
     ("sinais-de-autismo/", "Sinais"),
-    ("como-funciona/", "Como funciona"),
+    ("como-funciona/", "Protocolo"),
+    ("avaliacao-diagnostica/", "Avaliação"),
     ("dra-jeanine/", "A médica"),
     ("consultorio/", "Consultório"),
-    ("consulta-online/", "Online"),
     ("valores-e-duvidas/", "Valores e dúvidas"),
 ]
 
@@ -68,6 +68,10 @@ WA_ADULTO = "Olá! Vim pelo site e quero agendar uma consulta para mim (adulto) 
 WA_GERAL = "Olá! Vim pelo site e gostaria de agendar uma consulta com a Dra. Jeanine."
 
 WA_INFANTIL = "Olá! Vim pelo site e quero agendar a avaliação do meu filho(a) com a Dra. Jeanine."
+WA_AVALIACAO = "Olá! Vim pelo site e gostaria de informações sobre o agendamento da Avaliação Médica Diagnóstica com a Dra. Jeanine Carneiro."
+
+# links do rodapé: o menu + páginas que não cabem no menu
+EXTRA_RODAPE = [("consulta-online/", "Consulta online")]
 
 
 def P(txt):
@@ -118,6 +122,7 @@ SPRITE = ('<svg width="0" height="0" style="position:absolute" aria-hidden="true
           + _s("bag", '<path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>')
           + _s("car", '<path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v3H3zM7 19v1M17 19v1"/><circle cx="7.5" cy="13.5" r=".8"/><circle cx="16.5" cy="13.5" r=".8"/>')
           + _s("insta", '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>')
+          + _s("book", '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 21a2 2 0 0 1 2-2h13M8 7h7M8 11h5"/>')
           + _s("video", '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/>')
           + '</svg>')
 
@@ -320,7 +325,7 @@ def closing(titulo="O primeiro passo pode ser hoje.",
 
 
 def footer(p, msg=WA_INFANTIL, pub="infantil"):
-    links = "\n          ".join('<li><a href="%s%s">%s</a></li>' % (p, s, r) for s, r in SITELINKS)
+    links = "\n          ".join('<li><a href="%s%s">%s</a></li>' % (p, s, r) for s, r in SITELINKS + EXTRA_RODAPE)
     return f"""</main>
 
 <footer class="site-footer dark">
@@ -434,41 +439,80 @@ IDADES = [  # (id, rótulo, faixa, sinais curtos, sinais extras para a página c
      ["Ansiedade em situações sociais", "Sensibilidade a barulho e multidão"]),
 ]
 
-PASSOS = [  # (ícone, quando, título, texto curto, texto da página completa)
-    ("doc", "Antes", "Você conta a história", "Formulário e documentos antes da consulta.",
-     "Você recebe um formulário e envia o que já tem: relatórios da escola, das terapias e exames."),
-    ("clock", "1 hora", "Consulta sem pressa", "Você é ouvida e seu filho, observado no tempo dele.",
-     "A Dra. Jeanine ouve você, observa a criança e olha para a vida real: casa, escola e terapias."),
-    ("eye", "Investigação", "Conclusão com cuidado", "Avaliações complementares quando necessário.",
-     "Quando preciso, ela pede avaliações complementares ou mais um encontro antes de fechar o diagnóstico."),
-    ("compass", "Depois", "Mapa para casa e escola", "Um guia do que fazer, passo a passo.",
-     "Você recebe um guia com o que foi combinado: casa, escola e quais terapias priorizar."),
-    ("refresh", "Retorno", "Ajuste do plano", "A Dra. confere a evolução com você.",
-     "No retorno, ela vê o que funcionou, ajusta o plano e define o próximo passo."),
+PASSOS = [  # Protocolo Dra. Jeanine Carneiro (oficial): (ícone, quando, título, curto, completo)
+    ("doc", "Antes", "Entrada essencial", "Formulário breve e documentos antes da consulta.",
+     "Formulário breve e documentos anteriores organizam as informações antes da consulta."),
+    ("clock", "1 hora", "Avaliação médica", "História, desenvolvimento e vida diária.",
+     "História, desenvolvimento, saúde e impacto das dificuldades na vida diária, em cerca de 1 hora."),
+    ("compass", "Na consulta", "Definição de rota", "O que já dá para concluir e como seguir.",
+     "Clareza sobre o que pode ser concluído, o que permanece em investigação e como seguir."),
+    ("heart", "Plano", "Plano individualizado", "Prioridades, encaminhamentos e medicação quando indicada.",
+     "Prioridades, orientações, encaminhamentos e medicação quando indicada."),
+    ("book", "Por escrito", "Documentos orientadores", "Materiais para retomar o que foi combinado.",
+     "Materiais personalizados para consultar os acordos e aplicar as orientações em casa, na escola e nas terapias."),
+    ("refresh", "Retorno", "Retorno e evolução", "Comparação, ajustes e Mapa de Evolução.",
+     "Comparação dos resultados, ajustes no plano e Mapa de Evolução após o retorno."),
 ]
 
-LEVA = [
-    ("compass", "Clareza", "Sobre o que está acontecendo e os próximos passos."),
-    ("doc", "Documentação médica", "Relatório ou laudo quando indicado. " + P("confirmar")),
-    ("school", "Escola e terapias", "O que priorizar e como a escola pode ajudar."),
-    ("home", "Rotina em casa", "Sono, crises, alimentação e telas."),
+LEVA = [  # materiais do protocolo (conteúdo individualizado conforme o caso)
+    ("book", "Orientação inicial", "PDF Cuidado Inicial", "Prioridades e pontos a trabalhar na rotina, de acordo com os combinados da consulta."),
+    ("compass", "Direção do cuidado", "Mapa de Direção Pós-Consulta", "Compreensão médica, diagnóstico ou hipótese, condutas, metas e próximos passos. Em geral, enviado em 2 a 3 dias."),
+    ("doc", "Quando há medicação", "Diário Medicamentoso", "Registro do uso prescrito, benefícios, efeitos e dúvidas para o retorno. Não autoriza ajustes por conta própria."),
+    ("school", "No primeiro diagnóstico", "E-book Inicial", "Material educativo sobre a condição identificada, para entender o diagnóstico e o cuidado."),
+]
+
+AVALIACAO_ETAPAS = [  # Avaliação Médica Diagnóstica (oficial)
+    ("chat", "Consulta", "Consulta inicial e anamnese", "Motivo da avaliação, história do desenvolvimento e de saúde e como as dificuldades afetam a rotina. Relatórios que você já tem entram desde aqui."),
+    ("doc", "Depois", "Escalas e questionários", "A Dra. envia os instrumentos escolhidos para a idade e as hipóteses do caso. Família, pessoas próximas ou a escola podem contribuir."),
+    ("clock", "Até 45 dias", "Você preenche e devolve", "Questionários e documentos são devolvidos em até 45 dias."),
+    ("eye", "Análise", "Análise médica integrada", "A consulta, as respostas e os documentos são cruzados para ver se os sinais atendem aos critérios clínicos e se há outras explicações ou condições associadas."),
+    ("refresh", "Se necessário", "Encontro complementar", "Só quando necessário: para esclarecer uma dúvida, aprofundar a história ou aplicar uma escala específica."),
+    ("check", "Retorno", "Devolutiva e laudos", "A Dra. explica os resultados e os próximos passos. Você recebe o laudo da avaliação médica e, quando há diagnóstico, o laudo correspondente."),
 ]
 
 FAQ = [
     ("Sai o diagnóstico já na primeira consulta?",
-     "Depende da criança. Às vezes sim; em outros casos a Dra. pede avaliações complementares ou mais um encontro. Você sempre sai sabendo os próximos passos. " + P("Confirmar o que é entregue e em quantas consultas.")),
+     "Quando existem informações suficientes, uma conclusão pode ser possível. Outros casos precisam de novos encontros, documentos ou avaliações, e o motivo é sempre explicado. O protocolo não promete diagnóstico, laudo ou medicação na primeira consulta."),
     ("Com que idade dá para avaliar?",
-     "Sinais podem aparecer já no primeiro ano de vida. Não existe “cedo demais” quando algo te preocupa."),
+     "Sinais podem aparecer já no primeiro ano de vida. Crianças menores de 7 anos começam pela consulta do Protocolo. A Avaliação Médica Diagnóstica completa, com escalas e laudo, é a partir de 7 anos."),
+    ("Preciso ter um diagnóstico para agendar?",
+     "Não. O protocolo também atende quem está em investigação de autismo, TDAH ou outras dificuldades do neurodesenvolvimento."),
     ("Aceita convênio?",
-     "Não, o atendimento é particular: é o que permite 1 hora de consulta, sem pressa. " + P("Confirmar se emite documento para reembolso.")),
-    ("Online funciona para criança?",
-     "Sim, para famílias de todo o Brasil. " + P("Confirmar quando a 1ª avaliação deve ser presencial.")),
+     "Não, o atendimento é particular: é o que permite 1 hora de consulta, sem pressa. Os valores são informados pelo WhatsApp. " + P("Confirmar se emite documento para reembolso.")),
+    ("A consulta online funciona?",
+     "Sim, para pacientes de todo o Brasil. Quando é necessário exame ou avaliação presencial, essa necessidade é explicada. O presencial acontece no Tatuapé, em São Paulo."),
+    ("Quais documentos eu recebo?",
+     "Na consulta do Protocolo, documentos orientadores conforme o caso, como o Mapa de Direção Pós-Consulta. Na Avaliação Médica Diagnóstica, o laudo da avaliação médica e, quando há diagnóstico, o laudo correspondente."),
     ("Meu filho precisa ir junto?",
      P("Confirmar:") + " sim, ele participa no tempo dele. Uma parte da conversa pode ser só com você."),
-    ("A escola aceita o relatório?",
-     "Quando indicado, a Dra. fornece documentação e orientações para a escola organizar as adaptações. " + P("Confirmar o documento entregue.")),
     ("Quem responde no WhatsApp?",
      "A equipe da Dra. Jeanine. " + P("Confirmar: humano ou automação, horário e tempo de resposta.")),
+]
+
+FAQ_PROTOCOLO = [
+    ("Preciso ter um diagnóstico para agendar?",
+     "Não. O protocolo também atende quem está em investigação de autismo, TDAH ou outras dificuldades do neurodesenvolvimento."),
+    ("O diagnóstico é concluído na primeira consulta?",
+     "Quando existem informações suficientes, uma conclusão pode ser possível. Outros casos precisam de novos encontros, documentos ou avaliações. O que falta e o motivo das solicitações são explicados."),
+    ("Todos recebem os mesmos materiais?",
+     "Não. O conteúdo é individualizado: a seleção de materiais, relatórios e reuniões depende da avaliação e do momento do cuidado."),
+    ("O atendimento pode ser online?",
+     "Sim, para pacientes de todo o Brasil. Quando é necessário exame ou avaliação presencial, essa necessidade é explicada. O presencial acontece no Tatuapé, em São Paulo."),
+    ("Como funciona o retorno?",
+     "A evolução é comparada com o plano anterior e as prioridades são ajustadas. Depois do retorno, você recebe o Mapa de Evolução Pós-Consulta. O prazo é definido na consulta."),
+]
+
+FAQ_AVALIACAO = [
+    ("A partir de que idade é a avaliação?",
+     "A partir de 7 anos: crianças, adolescentes e adultos. Para crianças menores, a investigação começa pela consulta do Protocolo."),
+    ("Já tenho avaliação psicológica, relatório escolar ou laudo anterior. Posso levar?",
+     "Sim. Esses documentos ajudam a entender a história e a interpretar os achados atuais."),
+    ("Todo paciente precisa de um encontro antes da devolutiva?",
+     "Não. O encontro complementar é agendado quando existe uma dúvida clínica a esclarecer ou quando é preciso aplicar um instrumento específico."),
+    ("Quais documentos vou receber?",
+     "O laudo da avaliação médica. Quando a avaliação estabelece um diagnóstico, também o laudo médico correspondente."),
+    ("Quanto custa?",
+     "Os valores e as formas de pagamento são informados pelo WhatsApp. Se você já fez a consulta inicial e decidir seguir com a avaliação, o valor pago pela consulta é abatido."),
 ]
 
 
@@ -524,18 +568,18 @@ def sec_idades(completo=False):
 
 
 def sec_passos(completo=False, dark=False):
-    passos = PASSOS if completo else [PASSOS[0], PASSOS[1], PASSOS[3], PASSOS[4]]
     cards = "\n".join('<li class="card reveal"><div class="ico">%s</div><span class="when">%s</span><h3>%s</h3><p>%s</p></li>'
-                      % (ic(i), q, t, (longo if completo else curto)) for i, q, t, curto, longo in passos)
-    mais = "" if completo else '<div class="more-row">%s</div>' % more("/como-funciona/", "Ver a avaliação em detalhes")
+                      % (ic(i), q, t, (longo if completo else curto)) for i, q, t, curto, longo in PASSOS)
+    mais = "" if completo else '<div class="more-row">%s</div>' % more("/como-funciona/", "Conhecer o protocolo completo")
     return f"""
 <section class="sec{' dark' if dark else ''}" id="como-funciona">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">O Protocolo Dra. Jeanine Carneiro</p>
-      <h2>Como é a avaliação</h2>
+      <p class="eyebrow">Protocolo Dra. Jeanine Carneiro</p>
+      <h2>Uma trilha. <em>Seis etapas de cuidado.</em></h2>
+      <p class="lede">Da dúvida diagnóstica ao plano de cuidado, com orientações que você pode retomar depois da consulta.</p>
     </div>
-    <ol class="cards{' c5' if completo else ''}" data-track="protocolo">
+    <ol class="cards c6" data-track="protocolo">
       {cards}
     </ol>
     {mais}
@@ -544,16 +588,40 @@ def sec_passos(completo=False, dark=False):
 """
 
 
+def sec_avaliacao_teaser():
+    return f"""
+<section class="sec dark">
+  <div class="wrap program">
+    <div>
+      <p class="eyebrow">A partir de 7 anos</p>
+      <h2>Avaliação Médica <em>Diagnóstica</em></h2>
+      <p class="lede">Investigação completa de autismo, TDAH e neurodesenvolvimento: consulta, escalas, análise integrada e devolutiva com laudo.</p>
+    </div>
+    <ul class="ticks">
+      <li>{ic("check")}<span>Mesma médica do início à devolutiva</span></li>
+      <li>{ic("check")}<span>Escalas e questionários para cada caso</span></li>
+      <li>{ic("check")}<span>Relatórios que você já tem são aproveitados</span></li>
+      <li>{ic("check")}<span>Laudo entregue na devolutiva</span></li>
+    </ul>
+    <p class="note-dark">Seu filho tem menos de 7 anos? A investigação começa pela consulta do Protocolo.</p>
+    <div class="cta-row"><a class="btn btn-1" href="/avaliacao-diagnostica/">Conhecer a avaliação{ic("arrow")}</a></div>
+  </div>
+</section>
+"""
+
+
 def sec_leva():
-    cards = "\n".join('<li class="card reveal"><div class="ico">%s</div><h3>%s</h3><p>%s</p></li>' % (ic(i), t, d) for i, t, d in LEVA)
+    cards = "\n".join('<li class="card reveal"><div class="ico">%s</div><span class="when">%s</span><h3>%s</h3><p>%s</p></li>' % (ic(i), q, t, d) for i, q, t, d in LEVA)
     return f"""
 <section class="sec dark">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">Você não sai só com uma consulta</p>
-      <h2>Você sai com <em>um caminho</em></h2>
+      <p class="eyebrow">Seu cuidado, também por escrito</p>
+      <h2>Orientações que continuam <em>depois da consulta</em></h2>
+      <p class="lede">Cada material tem uma finalidade, e o conteúdo é escolhido conforme o caso. Depois do retorno, você recebe o Mapa de Evolução.</p>
     </div>
     <ul class="cards no-num">{cards}</ul>
+    <p class="note-dark">Os documentos ajudam a retomar os combinados, sem depender só da memória. Medidas urgentes não esperam o envio dos PDFs.</p>
   </div>
 </section>
 """
@@ -564,7 +632,7 @@ def sec_frase(p):
 <section class="sec dark quote-band">
   <div class="wrap">
     <p class="big-quote reveal"><span class="l1">Você não está exagerando.</span> <span>Você está prestando atenção.</span></p>
-    <p class="lede">A Dra. Jeanine é médica, autista e mãe de autista. Ela já esteve do seu lado da mesa.</p>
+    <p class="lede">A Dra. Jeanine é médica, autista, tem TDAH e é mãe de um menino autista. Ela já esteve do seu lado da mesa.</p>
     <div class="sign">
       <img src="{p}assets/sobre-480.webp" alt="" width="54" height="54" loading="lazy">
       <span><b>Dra. Jeanine Carneiro</b>Médica · {CRM}</span>
@@ -582,11 +650,12 @@ def sec_medica(p, titulo="Quem é a Dra. Jeanine Carneiro"):
     <div>
       <p class="eyebrow">Sobre a médica</p>
       <h2>{titulo}</h2>
-      <p class="lede">Médica, autista e mãe do Miguel, um menino autista. Ela conhece o autismo dos dois lados da mesa, e é isso que muda a consulta.</p>
+      <p class="lede">Médica, autista, com TDAH e mãe do Miguel, um menino autista. Ela conhece o autismo e o TDAH dos dois lados da mesa, e é isso que muda a consulta.</p>
       <ul class="creds">
         <li>{ic("check")}<span>+3 mil famílias neurodivergentes atendidas</span></li>
         <li>{ic("check")}<span>Pós-graduada em Psiquiatria, Pediatria e Medicina de Família</span></li>
         <li>{ic("check")}<span>Certificação em autismo (formação Dr. Thiago Castro)</span></li>
+        <li>{ic("check")}<span>Formação em neurodesenvolvimento e funções executivas (CBI of Miami)</span></li>
         <li>{ic("check")}<span>Criadora do Protocolo Dra. Jeanine Carneiro</span></li>
       </ul>
       <p class="crm">Médica · {CRM}</p>
@@ -619,7 +688,6 @@ def sec_avaliacoes():
 
 
 def sec_valor(completo=False):
-    retorno = P("incluso? prazo?")
     mais = "" if completo else more("/valores-e-duvidas/", "Valores e dúvidas")
     extra = f"<p>{P('Reembolso do plano de saúde: confirmar.')}</p>" if completo else ""
     return f"""
@@ -628,19 +696,18 @@ def sec_valor(completo=False):
     <div class="invest">
       <div>
         <p class="eyebrow">Investimento</p>
-        <p class="price">{P("Consulta particular: R$ ___")}</p>
+        <p class="price">Atendimento particular</p>
         <ul class="ticks">
-          <li>{ic("check")}<span>Formulário e análise dos documentos</span></li>
-          <li>{ic("check")}<span>1 hora de consulta, presencial ou online</span></li>
-          <li>{ic("check")}<span>Mapa de orientações pós-consulta</span></li>
-          <li>{ic("check")}<span>Retorno para ajustar o plano {retorno}</span></li>
+          <li>{ic("check")}<span><b>Consulta do Protocolo:</b> formulário prévio, cerca de 1 hora de consulta e documentos orientadores conforme o caso</span></li>
+          <li>{ic("check")}<span><b>Avaliação Médica Diagnóstica</b> (a partir de 7 anos): consulta inicial, escalas, análise integrada, encontro complementar quando necessário e devolutiva com laudo</span></li>
+          <li>{ic("check")}<span>Se você fizer a consulta inicial e seguir para a avaliação, o valor da consulta é abatido</span></li>
         </ul>
       </div>
       <aside>
-        <h3>Por que é particular?</h3>
-        <p>Para ter uma hora inteira com o seu filho, sem pressa.</p>
+        <h3>Valores e formas de pagamento</h3>
+        <p>A equipe da Dra. Jeanine informa os valores e as condições pelo WhatsApp.</p>
         {extra}
-        <div class="cta-row">{btn_wa("valor", "Agendar avaliação")}</div>
+        <div class="cta-row">{btn_wa("valor", "Consultar valores")}</div>
         <p style="margin:1rem 0 0">{mais}</p>
       </aside>
     </div>
@@ -730,7 +797,7 @@ def page_principal():
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="tag"><i></i>Médica · Autista · Mãe de autista</span>
+      <span class="tag"><i></i>Médica · Autista · TDAH · Mãe atípica</span>
       <h1>Mãe, você percebeu sinais no seu filho? <em>A clareza começa aqui.</em></h1>
       <p class="lede">Avaliação de autismo e TDAH em 1 hora, sem pressa. Você sai com um plano para casa, escola e terapias.</p>
       <div class="cta-row">{btn_wa("hero")}</div>
@@ -749,6 +816,7 @@ def page_principal():
 {sec_chips()}
 {sec_idades()}
 {sec_passos()}
+{sec_avaliacao_teaser()}
 {sec_frase(p)}
 {sec_medica(p)}
 {sec_avaliacoes()}
@@ -789,10 +857,37 @@ def page_sinais():
 
 def page_como_funciona():
     p = "/"
-    corpo = page_hero(p, "Como funciona", "O Protocolo Dra. Jeanine Carneiro",
-                      "Da dúvida <em>ao plano</em>, em 5 passos",
-                      "Você não precisa chegar com respostas. Só com a história do seu filho.")
-    corpo += proof() + sec_passos(completo=True) + sec_leva()
+    corpo = page_hero(p, "Protocolo", "Da dúvida diagnóstica ao plano de cuidado",
+                      "Protocolo <em>Dra. Jeanine Carneiro</em>",
+                      "Entender o que está acontecendo é o começo. Saber quais passos seguir faz parte do cuidado.")
+    corpo += proof()
+    corpo += f"""
+<section class="sec">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Para quem é</p><h2>Uma trilha individualizada</h2></div>
+    <ul class="cards c3 no-num">
+      <li class="card reveal"><div class="ico">{ic("eye")}</div><span class="when">01</span><h3>Investigar e compreender</h3><p>Para quem busca entender sinais de autismo, TDAH ou outras dificuldades do neurodesenvolvimento.</p></li>
+      <li class="card reveal"><div class="ico">{ic("heart")}</div><span class="when">02</span><h3>Acolher um diagnóstico</h3><p>Para quem recebeu um primeiro diagnóstico e precisa entender as necessidades de suporte.</p></li>
+      <li class="card reveal"><div class="ico">{ic("refresh")}</div><span class="when">03</span><h3>Reorganizar o cuidado</h3><p>Para quem busca segunda opinião, clareza sobre tratamentos ou alinhamento com escola e terapias.</p></li>
+    </ul>
+  </div>
+</section>
+"""
+    corpo += sec_passos(completo=True, dark=False).replace('<section class="sec" id="como-funciona">', '<section class="sec sec-alt" id="etapas">')
+    corpo += f"""
+<section class="sec">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">O encontro · cerca de 1 hora</p><h2>Uma consulta que considera <em>a vida como ela acontece</em></h2></div>
+    <ul class="cards c3 no-num">
+      <li class="card reveal"><div class="ico">{ic("home")}</div><h3>Além dos sintomas</h3><p>Desenvolvimento, comunicação, atenção, sono, alimentação, saúde emocional e o dia a dia em casa, na escola ou no trabalho.</p></li>
+      <li class="card reveal"><div class="ico">{ic("compass")}</div><h3>Clareza sobre a investigação</h3><p>A conclusão depende de informações suficientes. Quando faltam relatórios, encontros ou avaliações, o motivo é explicado.</p></li>
+      <li class="card reveal"><div class="ico">{ic("chat")}</div><h3>Acordos antes de encerrar</h3><p>O que fazer primeiro, o que observar e quando retornar, com a comunicação adaptada a cada paciente.</p></li>
+    </ul>
+    <p class="note">O protocolo não promete diagnóstico, laudo ou medicação para todos na primeira consulta. A condução é individualizada.</p>
+  </div>
+</section>
+"""
+    corpo += sec_leva()
     corpo += f"""
 <section class="sec">
   <div class="wrap">
@@ -804,24 +899,108 @@ def page_como_funciona():
   </div>
 </section>
 """
-    corpo += closing()
+    corpo += sec_avaliacao_teaser() + sec_faq(FAQ_PROTOCOLO, mais=True) + closing()
     return montar("como-funciona/",
-                  "Como Funciona a Avaliação de Autismo Infantil | Dra. Jeanine Carneiro",
-                  "Conheça o Protocolo Dra. Jeanine Carneiro: formulário prévio, consulta de 1 hora, investigação cuidadosa, mapa pós-consulta e retorno.",
-                  "og-infantil.jpg", corpo, schema_crumb("Como funciona", "como-funciona/"))
+                  "Protocolo Dra. Jeanine Carneiro: Como Funciona a Consulta | Autismo e TDAH",
+                  "Protocolo Dra. Jeanine Carneiro: entrada essencial, avaliação médica de 1 hora, definição de rota, plano individualizado, documentos orientadores e retorno.",
+                  "og-infantil.jpg", corpo, schema_faq(FAQ_PROTOCOLO) + schema_crumb("Protocolo", "como-funciona/"))
+
+
+def page_avaliacao():
+    p = "/"
+    pub = "avaliacao"
+    etapas = "\n".join('<li class="card reveal"><div class="ico">%s</div><span class="when">%s</span><h3>%s</h3><p>%s</p></li>' % (ic(i), n, t, d) for i, n, t, d in AVALIACAO_ETAPAS)
+    corpo = f"""
+<section class="page-hero">
+  <div class="wrap narrow">
+    <div>
+      <p class="crumbs"><a href="/{PRINCIPAL}">Avaliação infantil</a> / Avaliação diagnóstica</p>
+      <p class="eyebrow">Autismo e TDAH · a partir de 7 anos</p>
+      <h1>Avaliação Médica <em>Diagnóstica</em></h1>
+      <p class="lede">Entenda o que está por trás dos sinais e saiba quais são os próximos passos. Da primeira consulta à devolutiva com laudo.</p>
+      <div class="cta-row">{btn_wa("hero", "Quero agendar a avaliação", WA_AVALIACAO, pub)}</div>
+      <p class="cta-note">Online em todo o Brasil · Presencial no Tatuapé (SP)</p>
+    </div>
+  </div>
+</section>
+{proof()}
+<section class="sec">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Para quem é</p><h2>Crianças a partir de 7 anos, <em>adolescentes e adultos</em></h2></div>
+    <ul class="cards c3 no-num">
+      <li class="card reveal"><div class="ico">{ic("eye")}</div><h3>Suspeita de autismo ou TDAH</h3><p>Para investigar autismo, TDAH ou outras questões do neurodesenvolvimento.</p></li>
+      <li class="card reveal"><div class="ico">{ic("school")}</div><h3>Dificuldades na rotina</h3><p>Comunicação, interação, atenção, aprendizagem ou adaptação, em casa, na escola ou no trabalho.</p></li>
+      <li class="card reveal"><div class="ico">{ic("doc")}</div><h3>Relatórios que não se conectam</h3><p>Para quem já passou por avaliações e quer entender o que esses achados significam juntos.</p></li>
+    </ul>
+    <p class="note">Também esclarece se os sinais podem estar ligados a outras condições, como ansiedade, depressão, TOC ou transtornos do humor, conforme o caso.</p>
+  </div>
+</section>
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Por que com a médica desde o início</p><h2>Uma só médica, <em>do começo ao laudo</em></h2></div>
+    <ul class="cards c3 no-num">
+      <li class="card reveal"><div class="ico">{ic("compass")}</div><h3>O diagnóstico é clínico</h3><p>Conta quando os sinais começaram, onde aparecem e como afetam a rotina. Escalas organizam, a história interpreta.</p></li>
+      <li class="card reveal"><div class="ico">{ic("check")}</div><h3>Laudo no próprio processo</h3><p>A mesma médica investiga, interpreta e explica. Sem precisar de outra consulta só para levar os resultados.</p></li>
+      <li class="card reveal"><div class="ico">{ic("book")}</div><h3>Seus relatórios contam</h3><p>Psicologia, fono, TO e escola trazem o que não aparece na consulta, e entram na análise.</p></li>
+    </ul>
+  </div>
+</section>
+<section class="sec" id="etapas">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Passo a passo</p><h2>Como funciona <em>a avaliação</em></h2></div>
+    <ol class="cards c6" data-track="protocolo">{etapas}</ol>
+    <div class="more-row">{btn_wa("etapas", "Quero agendar a avaliação", WA_AVALIACAO, pub)}</div>
+  </div>
+</section>
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Na devolutiva</p><h2>O que a avaliação <em>ajuda a esclarecer</em></h2></div>
+    <ul class="cards no-num">
+      <li class="card reveal"><div class="ico">{ic("eye")}</div><h3>O que os sinais têm em comum</h3><p>Dificuldades parecidas podem ter causas diferentes, ou coexistir.</p></li>
+      <li class="card reveal"><div class="ico">{ic("home")}</div><h3>O impacto no dia a dia</h3><p>Em casa, na escola, no trabalho e nas relações.</p></li>
+      <li class="card reveal"><div class="ico">{ic("doc")}</div><h3>Como se chegou à conclusão</h3><p>Você entende como as informações foram interpretadas e tira dúvidas.</p></li>
+      <li class="card reveal"><div class="ico">{ic("compass")}</div><h3>As prioridades de cuidado</h3><p>Acompanhamento, encaminhamentos e apoios para a rotina.</p></li>
+    </ul>
+  </div>
+</section>
+<section class="sec dark">
+  <div class="wrap program">
+    <div>
+      <p class="eyebrow">Faz parte do Protocolo</p>
+      <h2>Da dúvida diagnóstica <em>ao plano de cuidado</em></h2>
+      <p class="lede">A Avaliação Médica Diagnóstica integra o Protocolo Dra. Jeanine Carneiro: começa pela escuta, avança com instrumentos escolhidos para cada caso e chega à devolutiva com orientações para a próxima etapa.</p>
+    </div>
+    <ul class="ticks">
+      <li>{ic("check")}<span>Consulta inicial e questionários</span></li>
+      <li>{ic("check")}<span>Análise clínica dos materiais</span></li>
+      <li>{ic("check")}<span>Encontro complementar quando necessário</span></li>
+      <li>{ic("check")}<span>Devolutiva com os documentos</span></li>
+    </ul>
+    <div class="cta-row"><a class="btn btn-1" href="/como-funciona/">Conhecer o protocolo{ic("arrow")}</a></div>
+  </div>
+</section>
+{sec_faq(FAQ_AVALIACAO, mais=False)}
+"""
+    corpo += closing("Quer entender melhor os sinais que você observa?",
+                     "Agende a consulta inicial para conversar sobre a história e começar a investigação.",
+                     "Quero agendar a avaliação", WA_AVALIACAO, pub)
+    return montar("avaliacao-diagnostica/",
+                  "Avaliação Médica Diagnóstica de Autismo e TDAH (a partir de 7 anos) | Dra. Jeanine Carneiro",
+                  "Avaliação médica de autismo, TDAH e neurodesenvolvimento a partir de 7 anos: consulta, escalas, análise integrada e devolutiva com laudo. Tatuapé (SP) e online.",
+                  "og-infantil.jpg", corpo, schema_faq(FAQ_AVALIACAO) + schema_crumb("Avaliação diagnóstica", "avaliacao-diagnostica/"))
 
 
 def page_medica():
     p = "/"
     corpo = page_hero(p, "A médica", "Quem vai atender o seu filho",
-                      "Médica, autista e <em>mãe de autista</em>",
-                      "A Dra. Jeanine une ciência e vivência: ela conhece o autismo por dentro.", img="sobre")
+                      "Médica. Autista. TDAH. <em>Mãe atípica.</em>",
+                      "A Dra. Jeanine une ciência e vivência: ela conhece o autismo e o TDAH por dentro.", img="sobre")
     corpo += stats()
     corpo += f"""
 <section class="sec">
   <div class="wrap">
     <div class="pillars">
-      <div class="pillar reveal"><b>Vivência</b><p>É autista e mãe do Miguel, um menino autista. Sabe o que é estar do seu lado da mesa.</p></div>
+      <div class="pillar reveal"><b>Vivência</b><p>É autista, tem TDAH e é mãe do Miguel, um menino autista. Sabe o que é estar do seu lado da mesa.</p></div>
       <div class="pillar reveal"><b>Método</b><p>Criou o Protocolo Dra. Jeanine Carneiro: da escuta à clareza, da clareza ao cuidado.</p></div>
       <div class="pillar reveal"><b>Experiência</b><p>Mais de 3 mil famílias neurodivergentes atendidas, no Tatuapé e online.</p></div>
     </div>
@@ -835,6 +1014,8 @@ def page_medica():
       <li>{ic("check")}<span>Pós-graduada em Pediatria</span></li>
       <li>{ic("check")}<span>Pós-graduada em Medicina de Família e Comunidade</span></li>
       <li>{ic("check")}<span>Certificação em autismo pela formação do Dr. Thiago Castro</span></li>
+      <li>{ic("check")}<span>Formação complementar em neurodesenvolvimento e funções executivas pelo CBI of Miami</span></li>
+      <li>{ic("check")}<span>Idealizadora do Protocolo Dra. Jeanine Carneiro</span></li>
       <li>{ic("check")}<span>Criadora do Programa de Cuidado Personalizado (6 meses)</span></li>
     </ul>
     <p class="crm">Médica · {CRM}</p>
@@ -847,8 +1028,8 @@ def page_medica():
 {closing()}
 """
     return montar("dra-jeanine/",
-                  "Dra. Jeanine Carneiro: Médica, Autista e Mãe de Autista | CRM-SP 234310",
-                  "Conheça a Dra. Jeanine Carneiro: médica, autista e mãe atípica, com mais de 3 mil famílias atendidas. Presencial no Tatuapé e online.",
+                  "Dra. Jeanine Carneiro: Médica, Autista, TDAH e Mãe Atípica | CRM-SP 234310",
+                  "Conheça a Dra. Jeanine Carneiro: médica, autista, com TDAH e mãe atípica, com mais de 3 mil famílias atendidas. Presencial no Tatuapé e online.",
                   "og-home.jpg", corpo, schema_crumb("A médica", "dra-jeanine/"))
 
 
@@ -900,7 +1081,7 @@ def page_online():
       <li class="card reveal"><div class="ico">{ic("chat")}</div><span class="when">WhatsApp</span><h3>Você agenda</h3><p>Escolhe o horário com a equipe.</p></li>
       <li class="card reveal"><div class="ico">{ic("doc")}</div><span class="when">Antes</span><h3>Envia a história</h3><p>Formulário e documentos pelo celular.</p></li>
       <li class="card reveal"><div class="ico">{ic("video")}</div><span class="when">No dia</span><h3>Entra pelo link</h3><p>Chamada de vídeo pelo celular ou computador. {P("confirmar plataforma")}</p></li>
-      <li class="card reveal"><div class="ico">{ic("compass")}</div><span class="when">Depois</span><h3>Recebe o plano</h3><p>O mapa pós-consulta chega por mensagem. {P("confirmar")}</p></li>
+      <li class="card reveal"><div class="ico">{ic("compass")}</div><span class="when">Depois</span><h3>Recebe o plano</h3><p>O Mapa de Direção Pós-Consulta chega, em geral, em 2 a 3 dias.</p></li>
     </ol>
   </div>
 </section>
@@ -908,7 +1089,7 @@ def page_online():
   <div class="wrap narrow">
     <div class="vs">
       <div class="reveal"><h3>Online é ótimo para</h3><p>Conversar sobre a história, orientar a família, retornos e quem mora longe.</p></div>
-      <div class="reveal"><h3>Presencial pode ser indicado</h3><p>{P("Confirmar com a Dra.: em quais casos ela prefere a 1ª avaliação presencial.")}</p></div>
+      <div class="reveal"><h3>Presencial quando preciso</h3><p>Se for necessário um exame ou uma avaliação presencial, a Dra. explica o motivo. O presencial é no Tatuapé.</p></div>
     </div>
   </div>
 </section>
@@ -932,7 +1113,7 @@ def page_home():
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="tag"><i></i>Médica · Autista · Mãe de autista</span>
+      <span class="tag"><i></i>Médica · Autista · TDAH · Mãe atípica</span>
       <h1>Autismo e TDAH com clareza. <em>Para o seu filho e pra você.</em></h1>
       <p class="lede">Avaliação de 1 hora, sem pressa, com um plano do que fazer depois. No Tatuapé ou online.</p>
       <p class="routes-q">Para quem é a consulta?</p>
@@ -978,6 +1159,7 @@ def page_home():
 {sec_medica(p)}
 {sec_frase(p)}
 {sec_passos()}
+{sec_avaliacao_teaser()}
 <section class="sec sec-alt">
   <div class="wrap">
     <div class="head"><p class="eyebrow">Médica e terapias juntas</p><h2>Quem faz o quê</h2></div>
@@ -1008,7 +1190,7 @@ def page_home():
 {closing("O primeiro passo pode ser hoje.", "Fale com a equipe da Dra. Jeanine e escolha o melhor horário.", "Agendar pelo WhatsApp", WA_GERAL, "geral")}
 """
     html = (head(p, "Dra. Jeanine Carneiro | Autismo e TDAH · Tatuapé (SP) e Online",
-                 "Médica, autista e mãe de autista. Avaliação de autismo e TDAH para crianças, adolescentes e adultos, presencial no Tatuapé (SP) e online para todo o Brasil.",
+                 "Médica, autista, com TDAH e mãe atípica. Avaliação de autismo e TDAH para crianças, adolescentes e adultos, presencial no Tatuapé (SP) e online para todo o Brasil.",
                  SITE + "/", "og-home.jpg", schema_medico() + schema_faq(FAQ_HOME))
             + header(p, "", WA_GERAL, "geral") + corpo + footer(p, WA_GERAL, "geral"))
     return html
@@ -1018,7 +1200,7 @@ FAQ_HOME = [
     ("Atende crianças e adultos?",
      "Sim. Crianças, adolescentes e adultos, com foco em autismo, TDAH e neurodesenvolvimento."),
     ("Aceita convênio?",
-     "Não, o atendimento é particular: é o que permite 1 hora de consulta, sem pressa. " + P("Confirmar reembolso.")),
+     "Não, o atendimento é particular: é o que permite 1 hora de consulta, sem pressa. Os valores são informados pelo WhatsApp. " + P("Confirmar reembolso.")),
     ("A consulta online funciona?",
      "Sim, para todo o Brasil, com o mesmo tempo e o mesmo protocolo da presencial."),
     ("Onde fica o consultório?",
@@ -1041,6 +1223,7 @@ def main():
         PRINCIPAL: page_principal(),
         "sinais-de-autismo/": page_sinais(),
         "como-funciona/": page_como_funciona(),
+        "avaliacao-diagnostica/": page_avaliacao(),
         "dra-jeanine/": page_medica(),
         "consultorio/": page_consultorio(),
         "consulta-online/": page_online(),

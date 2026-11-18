@@ -390,6 +390,17 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
 .wa-fab:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
 @media (max-width:700px){.wa-fab{width:60px;padding:0;justify-content:center}.wa-fab span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 
+
+/* ---------- 6 etapas (protocolo e avaliação): 3 → 2 → 1 colunas ---------- */
+.cards.c6{grid-template-columns:repeat(3,1fr)}
+@media (max-width:1080px){.cards.c6{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.cards.c6{grid-template-columns:1fr}}
+.note-dark{grid-column:1/-1;margin:1.2rem 0 0;padding:1rem 1.2rem;border-radius:var(--r);background:var(--deep-700);border:1px solid var(--deep-600);color:var(--on-deep);font-size:1rem}
+.program .note-dark{margin:0}
+.ticks b{font-weight:600;color:var(--deep)}
+.dark .card .when{color:var(--gold-soft)}
+.dark .ticks b{color:var(--cream)}
+
 /* ---------- telas grandes ---------- */
 @media (min-width:1600px){:root{--wrap:1320px}body{font-size:1.22rem}}
 
@@ -418,8 +429,9 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
   .stats-band .stats b{display:inline;font-size:1.3rem;margin:0}
   .stats-band .stats span{font-size:.85rem}
   .js .stats-band .reveal{opacity:1;transform:none}
-  .cards,.cards.c5,.cards.c3,.cards.c2,.pillars,.signs{grid-template-columns:repeat(2,1fr);gap:.6rem}
-  .card{display:block;padding:1rem .85rem}
+  .cards,.cards.c5,.cards.c3,.cards.c2,.cards.c6,.pillars,.signs{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .card{display:block;padding:1rem .85rem;min-width:0}
+  .card h3,.card p,.pillar p,.signs li{overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}
   .card .ico{width:40px;height:40px;border-radius:12px;margin:0 0 .6rem}
   .card .ico svg{width:20px;height:20px}
   .card::after{top:.8rem;right:.85rem;font-size:1.7rem}
