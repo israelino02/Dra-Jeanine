@@ -588,10 +588,51 @@ def sec_passos(completo=False, dark=False):
 """
 
 
-def sec_avaliacao_teaser():
+def sec_protocolo(completo=False, materiais=True, wa_msg=WA_INFANTIL, pub="infantil"):
+    """Protocolo em destaque: seção escura, título de marca e trilha de 6 etapas
+    ligadas por uma linha dourada (horizontal no computador, vertical no celular)."""
+    passos = "\n".join(
+        '<li class="trail-step reveal"><span class="trail-dot">%d</span><div><span class="when">%s</span><h3>%s</h3><p>%s</p></div></li>'
+        % (n + 1, q, t, (longo if completo else curto)) for n, (i, q, t, curto, longo) in enumerate(PASSOS))
+    selos = ""
+    if materiais:
+        selos = """
+    <div class="proto-docs reveal">
+      <p>Você sai com orientações por escrito:</p>
+      <ul>
+        <li>%sPDF Cuidado Inicial</li>
+        <li>%sMapa de Direção Pós-Consulta</li>
+        <li>%sDiário Medicamentoso <small>quando há medicação</small></li>
+        <li>%sE-book Inicial <small>no primeiro diagnóstico</small></li>
+        <li>%sMapa de Evolução <small>após o retorno</small></li>
+      </ul>
+    </div>""" % (ic("book"), ic("compass"), ic("doc"), ic("school"), ic("refresh"))
+    botoes = "" if completo else '<div class="cta-row proto-cta">%s<a class="btn btn-ghost" href="/como-funciona/">Conhecer o protocolo completo%s</a></div>' % (
+        btn_wa("protocolo", "Quero começar pelo protocolo", wa_msg, pub), ic("arrow"))
     return f"""
-<section class="sec dark">
-  <div class="wrap program">
+<section class="sec dark protocol" id="protocolo">
+  <div class="wrap">
+    <div class="proto-head">
+      <p class="proto-badge">{ic("star")}Método próprio da Dra. Jeanine</p>
+      <h2>{"Uma trilha. <em>Seis etapas de cuidado.</em>" if completo else "Protocolo <em>Dra. Jeanine Carneiro</em>"}</h2>
+      <p class="lede">Da dúvida diagnóstica ao plano de cuidado. Uma trilha em seis etapas, com orientações que você pode retomar depois da consulta.</p>
+    </div>
+    <ol class="trail" data-track="protocolo">
+      {passos}
+    </ol>
+    {selos}
+    <p class="proto-note">A condução é individualizada: o protocolo não promete diagnóstico, laudo ou medicação para todos na primeira consulta.</p>
+    {botoes}
+  </div>
+</section>
+"""
+
+
+def sec_avaliacao_teaser(fundo="dark"):
+    cls = {"dark": "sec dark", "claro": "sec", "alt": "sec sec-alt"}[fundo]
+    return f"""
+<section class="{cls}">
+  <div class="wrap program{' light' if fundo != 'dark' else ''}">
     <div>
       <p class="eyebrow">A partir de 7 anos</p>
       <h2>Avaliação Médica <em>Diagnóstica</em></h2>
@@ -814,9 +855,9 @@ def page_principal():
   </div>
 </section>
 {sec_chips()}
+{sec_protocolo()}
+{sec_avaliacao_teaser("claro")}
 {sec_idades()}
-{sec_passos()}
-{sec_avaliacao_teaser()}
 {sec_frase(p)}
 {sec_medica(p)}
 {sec_avaliacoes()}
@@ -873,7 +914,7 @@ def page_como_funciona():
   </div>
 </section>
 """
-    corpo += sec_passos(completo=True, dark=False).replace('<section class="sec" id="como-funciona">', '<section class="sec sec-alt" id="etapas">')
+    corpo += sec_protocolo(completo=True, materiais=False)
     corpo += f"""
 <section class="sec">
   <div class="wrap">
@@ -1156,10 +1197,10 @@ def page_home():
     </div>
   </div>
 </section>
+{sec_protocolo(wa_msg=WA_GERAL, pub="geral")}
+{sec_avaliacao_teaser("claro")}
 {sec_medica(p)}
 {sec_frase(p)}
-{sec_passos()}
-{sec_avaliacao_teaser()}
 <section class="sec sec-alt">
   <div class="wrap">
     <div class="head"><p class="eyebrow">Médica e terapias juntas</p><h2>Quem faz o quê</h2></div>
