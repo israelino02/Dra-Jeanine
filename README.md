@@ -13,7 +13,7 @@ Planejamento: [briefing](../02%20-%20Briefing%20do%20site.md) · [estrutura](../
 |---|---|
 | `/avaliacao-autismo-infantil/` | ✅ v2: enxuta e interativa (ICP A, recebe os anúncios) |
 | `/` home | ✅ v1: escolha "meu filho / mim" |
-| `/sinais-de-autismo/` · `/como-funciona/` · `/dra-jeanine/` · `/consultorio/` · `/consulta-online/` · `/valores-e-duvidas/` | ✅ 6 páginas de sitelink |
+| `/sinais-de-autismo/` · `/como-funciona/` (Protocolo) · `/avaliacao-diagnostica/` · `/dra-jeanine/` · `/consultorio/` · `/consulta-online/` · `/valores-e-duvidas/` | ✅ 7 páginas de sitelink (18/11: Protocolo oficial + Avaliação Médica Diagnóstica; nenhum valor no site) |
 | `/autismo-tdah-adulto/` · `/programa-de-cuidado/` | ⏳ (enquanto isso, `ADULTO_PRONTO = False` manda o "É sobre mim" para o WhatsApp) |
 | `/politica-de-privacidade/` | ⏳ (o aviso de cookies já aponta para ela) |
 
