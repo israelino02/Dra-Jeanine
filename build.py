@@ -42,11 +42,13 @@ INSTA_USER = "@drajeanine"
 # horário do Perfil da Empresa no Google (17/11/2026): seg a sex, 8h às 16h
 HORARIOS = [("Segunda a sexta", "8h às 16h"), ("Sábado e domingo", "Fechado")]
 MAP_EMBED = "https://www.google.com/maps?q=" + "R.+Vilela,+665+-+Tatuap%C3%A9,+S%C3%A3o+Paulo+-+SP,+03314-000" + "&z=16&output=embed"
-ATUALIZADO = "2026-11-18"
+ATUALIZADO = "2026-11-19"
+ATUALIZADO_EXTENSO = "19 de novembro de 2026"
 
 # Enquanto o site está só no endereço provisório da Vercel (com pendências em
 # amarelo), ele fica FORA do Google. Ao apontar o domínio: INDEXAR = True.
-INDEXAR = False
+# 19/11/2026: domínio www.drajeaninecarneiro.com.br no ar → site liberado para o Google.
+INDEXAR = True
 
 # página principal (de anúncio) enquanto a home não existe
 PRINCIPAL = "avaliacao-autismo-infantil/"
@@ -179,7 +181,7 @@ def head(p, title, desc, canon, og_img, extra=""):
 document.documentElement.classList.add('js');
 // Consentimento (Google Consent Mode v2) antes do GTM.
 // Site de saúde: TUDO negado até a pessoa aceitar. Anúncio personalizado sempre negado.
-// Com "Aceitar", o GTM recebe consent_accept: é nele que disparam Clarity e Pixel/CAPI da Meta.
+// Com "Aceitar", o GTM recebe consent_accept: é nele que dispara o Pixel da Meta.
 window.dataLayer=window.dataLayer||[];
 function gtag(){{dataLayer.push(arguments);}}
 (function(){{
@@ -356,7 +358,7 @@ def footer(p, msg=WA_INFANTIL, pub="infantil"):
     <div class="foot-legal">
       <p>Dra. Jeanine Carneiro · Médica · {CRM}</p>
       <p>Conteúdo educativo, que não substitui a consulta médica. Os canais de mensagem não atendem urgências: em caso de emergência, procure o pronto-socorro ou ligue 192.</p>
-      <p class="foot-links"><a href="{p}politica-de-privacidade/">{P("Política de privacidade")}</a><button type="button" class="link-btn" data-cookie-prefs>Preferências de privacidade</button><span>© 2026 Dra. Jeanine Carneiro</span></p>
+      <p class="foot-links"><a href="{p}politica-de-privacidade/">Política de privacidade</a><button type="button" class="link-btn" data-cookie-prefs>Preferências de privacidade</button><span>© 2026 Dra. Jeanine Carneiro</span></p>
     </div>
   </div>
 </footer>
@@ -364,7 +366,7 @@ def footer(p, msg=WA_INFANTIL, pub="infantil"):
 <a class="wa-fab" href="{wa(msg)}" data-wa="flutuante" data-publico="{pub}" aria-label="Agendar pelo WhatsApp">{ic("wa")}<span>Agendar pelo WhatsApp</span></a>
 
 <div class="cookie" id="cookie" role="region" aria-label="Aviso de privacidade" hidden>
-  <p>Com a sua permissão, medimos as visitas com Google, Microsoft e Meta. Nenhuma informação de saúde é coletada. <a href="{p}politica-de-privacidade/">Saiba mais</a></p>
+  <p>Com a sua permissão, medimos as visitas com ferramentas do Google e da Meta. Nenhuma informação de saúde é coletada. <a href="{p}politica-de-privacidade/">Saiba mais</a></p>
   <div class="cta-row">
     <button type="button" class="btn btn-1" data-consent="aceito">Aceitar</button>
     <button type="button" class="btn btn-2" data-consent="recusado">Recusar</button>
@@ -1249,6 +1251,99 @@ FAQ_HOME = [
 ]
 
 
+
+CONTROLADORA = "Dra. Jeanine Carneiro Telemedicina LTDA, CNPJ 52.387.452/0001-71"
+
+PRIVACIDADE = f"""
+<h1>Política de privacidade</h1>
+<p class="doc-meta">Última atualização: {ATUALIZADO_EXTENSO}</p>
+
+<p>Esta política explica quais dados o site drajeaninecarneiro.com.br coleta, para que eles servem e como você pode recusar ou pedir a exclusão. Ela segue a Lei Geral de Proteção de Dados (Lei 13.709/2018, a LGPD).</p>
+
+<h2>Quem é o responsável</h2>
+<p>{CONTROLADORA}, com responsabilidade técnica da Dra. Jeanine Carneiro, médica, {CRM}. Consultório na {ENDERECO.replace(" · ", ", ")}, Tatuapé, São Paulo/SP, CEP {CEP}.</p>
+<p>Para qualquer assunto sobre seus dados pessoais, fale conosco pelo WhatsApp <a href="{wa("Olá! Tenho uma solicitação sobre meus dados pessoais (LGPD).")}">{TEL}</a> ou por carta para o endereço acima.</p>
+
+<h2>O que o site coleta</h2>
+<p><strong>O site não tem formulário nem cadastro.</strong> Ele não pede nome, e-mail, telefone, CPF ou informações de saúde.</p>
+<p><strong>Nada é medido antes da sua escolha.</strong> Ao entrar no site, aparece um aviso de privacidade. Enquanto você não clica em “Aceitar”, as ferramentas de medição não gravam cookies; o Google recebe apenas sinais técnicos sem identificador, que não permitem saber quem você é.</p>
+<p><strong>Se você aceitar:</strong></p>
+<ul>
+  <li><strong>Google</strong> (Tag Manager, Analytics 4 e medição de conversões do Google Ads): páginas vistas, tempo na página, de onde você veio (por exemplo, uma busca ou um anúncio), tipo de aparelho e navegador, cidade aproximada e cliques nos botões do site, como WhatsApp, “Como chegar” e perguntas frequentes.</li>
+  <li><strong>Meta</strong> (Pixel do Facebook e Instagram): a visita à página e o clique no botão de WhatsApp, para saber se os anúncios nessas redes trazem contatos.</li>
+</ul>
+<p><strong>Frases e abas interativas.</strong> As frases que você toca em “Alguma dessas frases é sua?” e as idades que você escolhe ficam só no seu navegador. Elas não são enviadas a ninguém.</p>
+<p><strong>Contato pelo WhatsApp.</strong> Os botões de agendamento abrem o WhatsApp com uma mensagem já escrita. Se você chegou por um anúncio, a mensagem inclui um código curto da campanha (por exemplo, “[ref: …]”), para sabermos qual anúncio trouxe o contato. Nada é enviado se você não mandar a mensagem. Se mandar, o que você escrever é usado pela equipe da Dra. Jeanine para responder e agendar, e também passa pelo WhatsApp, que segue a política de privacidade da Meta.</p>
+<p><strong>Conteúdo de terceiros.</strong> O mapa do consultório vem do Google Maps e só é carregado quando você clica em “Mostrar mapa” ou aceita o aviso. Ao carregar, o Google recebe o endereço IP e dados técnicos do navegador. As fontes de texto são do próprio site. A hospedagem (Vercel) registra o IP em seus registros de acesso.</p>
+
+<h2>Para que usamos</h2>
+<ul>
+  <li>Saber quantas pessoas visitam o site e quais páginas são úteis.</li>
+  <li>Saber se os anúncios no Google, no Facebook e no Instagram trazem pessoas que entram em contato, para decidir onde investir.</li>
+  <li>Responder e agendar consultas pelo WhatsApp.</li>
+</ul>
+<p>Não usamos os dados para anúncios personalizados nem para remarketing: essa função fica sempre desligada, porque o site trata de saúde. Não vendemos dados.</p>
+
+<h2>Bases legais</h2>
+<ul>
+  <li><strong>Medição de visitas e de anúncios (Google e Meta):</strong> consentimento (art. 7º, I), dado ao clicar em “Aceitar” e que pode ser revogado a qualquer momento.</li>
+  <li><strong>Atendimento pelo WhatsApp:</strong> procedimentos preliminares a uma consulta, a seu pedido (art. 7º, V). Informações de saúde que você decidir contar na mensagem são tratadas para a tutela da saúde, por profissional de saúde (art. 11, II, f), sob sigilo médico.</li>
+</ul>
+
+<h2>Cookies e armazenamento no navegador</h2>
+<div class="doc-table">
+<table>
+  <thead><tr><th>Nome</th><th>De quem</th><th>Para que</th><th>Duração</th></tr></thead>
+  <tbody>
+    <tr><td>_ga, _ga_*</td><td>Google Analytics (só com aceite)</td><td>Distinguir visitantes e sessões</td><td>até 2 anos</td></tr>
+    <tr><td>_gcl_au, _gcl_aw</td><td>Google Ads (só com aceite)</td><td>Ligar um contato ao anúncio que o trouxe</td><td>90 dias</td></tr>
+    <tr><td>_fbp</td><td>Meta (só com aceite)</td><td>Ligar um contato ao anúncio que o trouxe</td><td>90 dias</td></tr>
+    <tr><td>jc_consent</td><td>Este site (armazenamento local)</td><td>Lembrar sua escolha no aviso de privacidade</td><td>até você limpar o navegador</td></tr>
+    <tr><td>jc_origem</td><td>Este site (armazenamento da sessão)</td><td>Guardar o código da campanha para a mensagem do WhatsApp</td><td>até fechar a aba</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Você pode mudar sua escolha quando quiser em <button type="button" class="link-btn" data-cookie-prefs>Preferências de privacidade</button>, que também está no rodapé de todas as páginas. Também é possível bloquear cookies nas configurações do navegador.</p>
+
+<h2>Com quem os dados são compartilhados</h2>
+<p>Com os fornecedores das ferramentas citadas: Google (Analytics, Ads, Tag Manager e Maps), Meta (Pixel e WhatsApp) e Vercel (hospedagem). Esses serviços guardam dados em servidores fora do Brasil, com as garantias contratuais previstas no art. 33 da LGPD.</p>
+
+<h2>Por quanto tempo</h2>
+<ul>
+  <li>Google Analytics: dados detalhados de eventos por 2 meses. Os relatórios de totais, sem identificador, não expiram.</li>
+  <li>Meta e Google Ads: conforme as políticas de cada empresa.</li>
+  <li>Conversas no WhatsApp: pelo tempo necessário ao atendimento. Os dados da consulta, quando ela acontece, seguem as regras do prontuário médico.</li>
+</ul>
+
+<h2>Seus direitos</h2>
+<p>Pela LGPD (art. 18), você pode pedir a confirmação de que tratamos seus dados, acesso, correção, anonimização ou eliminação, portabilidade, informação sobre com quem compartilhamos e a revogação do consentimento. Basta falar conosco pelo WhatsApp {TEL}; respondemos em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+<h2>Crianças e adolescentes</h2>
+<p>O site é informativo, é voltado a pais, mães e responsáveis e não coleta dados de cadastro. A Dra. Jeanine atende crianças, adolescentes e adultos; consultas de menores de 18 anos são agendadas e acompanhadas por um responsável. Dados de crianças e adolescentes contados no atendimento são tratados no melhor interesse deles (art. 14 da LGPD).</p>
+
+<h2>Mudanças nesta política</h2>
+<p>Se a forma de coletar dados mudar, esta página será atualizada e a data no topo mudará.</p>
+"""
+
+
+def page_privacidade():
+    p = "/"
+    corpo = f"""
+<section class="doc-page">
+  <div class="wrap narrow">
+    <p class="crumbs"><a href="/">Início</a> / Política de privacidade</p>
+    <article class="doc">
+{PRIVACIDADE}
+    </article>
+  </div>
+</section>
+"""
+    return (head(p, "Política de privacidade | Dra. Jeanine Carneiro",
+                 "Quais dados o site da Dra. Jeanine Carneiro coleta, para que servem e como recusar ou pedir a exclusão, conforme a LGPD.",
+                 SITE + "/politica-de-privacidade/", "og-home.jpg")
+            + header(p, "politica-de-privacidade/", WA_GERAL, "geral") + corpo + footer(p, WA_GERAL, "geral"))
+
+
 # ------------------------------------------------------------------ main ----
 def escrever(caminho, conteudo):
     destino = os.path.join(OUT, caminho)
@@ -1269,6 +1364,7 @@ def main():
         "consultorio/": page_consultorio(),
         "consulta-online/": page_online(),
         "valores-e-duvidas/": page_valores(),
+        "politica-de-privacidade/": page_privacidade(),
     }
     for slug, html in paginas.items():
         escrever(slug + "index.html", html)

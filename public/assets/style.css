@@ -446,6 +446,23 @@ mark.pendente{background:#fff1b8;color:#5a4300;padding:.05em .3em;border-radius:
 .program.light .note-dark{background:var(--cream-2);border-color:var(--line);color:var(--ink)}
 .program.light .btn-1{background:var(--deep);color:var(--cream)}
 
+
+/* ---------- página de texto (política de privacidade) ---------- */
+.doc-page{padding:clamp(2rem,5vw,4rem) 0 var(--sec)}
+.doc h1{font-size:clamp(2rem,1.5rem + 2.4vw,3rem);margin-bottom:.4rem}
+.doc .doc-meta{color:var(--muted);font-size:.95rem;margin-bottom:2rem}
+.doc h2{font-size:clamp(1.35rem,1.15rem + .8vw,1.7rem);margin:2.4rem 0 .8rem}
+.doc p,.doc li{line-height:1.7;max-width:70ch}
+.doc ul{padding-left:1.2rem;margin:.4rem 0 1rem}
+.doc li+li{margin-top:.45rem}
+.doc a{color:var(--gold-ink);font-weight:600}
+.doc .link-btn{color:var(--gold-ink);font-weight:600}
+.doc-table{overflow-x:auto;margin:1rem 0 1.2rem;border:1px solid var(--line);border-radius:var(--r)}
+.doc table{border-collapse:collapse;width:100%;min-width:560px;font-size:.95rem;background:var(--white)}
+.doc th,.doc td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
+.doc th{font-weight:700;color:var(--deep);background:var(--cream-2)}
+.doc tr:last-child td{border-bottom:0}
+
 /* ---------- telas grandes ---------- */
 @media (min-width:1600px){:root{--wrap:1320px}body{font-size:1.22rem}}
 
