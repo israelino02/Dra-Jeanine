@@ -15,7 +15,7 @@ Planejamento: [briefing](../02%20-%20Briefing%20do%20site.md) · [estrutura](../
 | `/` home | ✅ v1: escolha "meu filho / mim" |
 | `/sinais-de-autismo/` · `/como-funciona/` (Protocolo) · `/avaliacao-diagnostica/` · `/dra-jeanine/` · `/consultorio/` · `/consulta-online/` · `/valores-e-duvidas/` | ✅ 7 páginas de sitelink (18/11: Protocolo oficial + Avaliação Médica Diagnóstica; nenhum valor no site) |
 | `/autismo-tdah-adulto/` · `/programa-de-cuidado/` | ⏳ (enquanto isso, `ADULTO_PRONTO = False` manda o "É sobre mim" para o WhatsApp) |
-| `/politica-de-privacidade/` | ⏳ (o aviso de cookies já aponta para ela) |
+| `/politica-de-privacidade/` | ✅ publicada em 19/11 (revisão jurídica recomendada) |
 
 Os sitelinks prontos para o Google Ads estão no fim de [03 - Estrutura do site](../03%20-%20Estrutura%20do%20site.md).
 
@@ -55,7 +55,7 @@ O resultado precisa ser **0** em todas as páginas.
 ## Medição
 
 - GTM `GTM-NK58M5DS` (o mesmo do site atual) com Consent Mode v2. **Tudo fica negado até a pessoa clicar em "Aceitar"**, porque é site de saúde. Anúncio personalizado fica sempre negado.
-- Com "Aceitar", o GTM recebe o evento `consent_accept`. Clarity e Pixel/CAPI da Meta devem disparar nesse gatilho, **configurar no GTM**.
+- Com "Aceitar", o GTM recebe o evento `consent_accept`, e é nele que dispara o Pixel da Meta. O Clarity **não** está instalado: o aviso e a política falam só em Google e Meta.
 - Eventos na camada de dados (sem nenhum dado de saúde):
   - `whatsapp_click` com `{pagina, posicao, publico}`
   - `maps_click`
@@ -88,7 +88,7 @@ O servidor de prévia não lê a pasta Documents (permissão do macOS). Então a
 - **No ar (provisório):** https://dra-jeanine.vercel.app (Vercel, projeto `dra-jeanine`, conta israelino02-6552). Existe só esse projeto: um duplicado criado sem querer (`dra-jeanine-u6uq`) foi apagado em 17/11.
 - **Repositório:** https://github.com/israelino02/Dra-Jeanine (público, branch `main`)
 - **Atualizar:** `python3 build.py` → commit → `git push origin main`. A Vercel publica sozinha em segundos.
-- **Fora do Google** enquanto estiver no endereço provisório: `INDEXAR = False` no `build.py` gera `noindex` e `robots.txt` com `Disallow`.
+- **Indexação:** `INDEXAR = True` desde 19/11, quando o domínio entrou no ar. Com `False`, o build gera `noindex` e um `robots.txt` com `Disallow`.
 - **Para ir para o domínio:**
   1. Adicionar `drajeaninecarneiro.com.br` no projeto da Vercel (Settings → Domains).
   2. Trocar o DNS. Hoje ele aponta para o site antigo, hospedado pelo ChatGPT atrás da Cloudflare.
